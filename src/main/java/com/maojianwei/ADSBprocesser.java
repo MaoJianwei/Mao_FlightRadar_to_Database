@@ -8,8 +8,10 @@ public class ADSBprocesser {
     private static final String MSG_FALSE= "0";
     private static final String DATA_NULL= "NULL";
     private static final String DATA_QUOTE= "\"";
-    private static final String DATA_TRUE= "TRUE";
-    private static final String DATA_FALSE= "FALSE";
+//    private static final String DATA_TRUE= "\"TRUE\"";        // sqlite
+//    private static final String DATA_FALSE= "\"FALSE\"";      // sqlite
+    private static final String DATA_TRUE= "TRUE";        // mysql
+    private static final String DATA_FALSE= "FALSE";      // mysql
 
     private FRTDcore core;
 
@@ -25,7 +27,10 @@ public class ADSBprocesser {
 
         //ICAO_HexIdent
         adsbData[4] = DATA_QUOTE + adsbData[4] + DATA_QUOTE;
-        //TODO - DATE & TIME
+        //DATE
+        adsbData[6] = DATA_QUOTE + adsbData[6] +DATA_QUOTE;
+        //TIME
+        adsbData[7] = DATA_QUOTE + adsbData[7] + DATA_QUOTE;
         //Callsign
         adsbData[10] = adsbData[10].equals(MSG_NULL) ? DATA_NULL : DATA_QUOTE + adsbData[10] + DATA_QUOTE;
         //Altitude
@@ -54,8 +59,6 @@ public class ADSBprocesser {
 
         //IsOnGround
         adsbData[21] = dealIsOnGround(msgTypeCode, adsbData[21]);
-
-        System.out.println(adsbData);
 
         core.submitADSBdata(adsbData);
     }

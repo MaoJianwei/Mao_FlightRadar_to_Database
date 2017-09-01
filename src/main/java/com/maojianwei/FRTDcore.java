@@ -15,8 +15,6 @@ public class FRTDcore
     private FlightRadarNetworkManager networkManager;
 
     public static void main( String[] args ) throws InterruptedException, UnknownHostException {
-        System.out.println( "Hello World!" );
-
         FRTDcore core = new FRTDcore();
         core.debugNetwork();
 
@@ -41,6 +39,6 @@ public class FRTDcore
 
     // interface for ADSBprocesser
     public void submitADSBdata(String [] adsbData) {
-
+        database.insertEntry(adsbData);
     }
 }
